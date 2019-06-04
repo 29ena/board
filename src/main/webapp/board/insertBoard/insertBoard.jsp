@@ -1,4 +1,3 @@
-<%@page import="kr.or.ddit.paging.model.PageVo"%>
 <%@page import="kr.or.ddit.user.model.UserVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,41 +14,13 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>사용자페이징리스트</title>
+<title>사용자리스트</title>
 <!-- css, js -->
 <%@include file="/common/basicLib.jsp" %>
-
-<style>
-	.userTr:hover{
-		cursor:pointer;
-	}
-</style>
-<script>
-	$(document).ready(function(){
-		$(".userTr").on("click",function(){
-			
-			console.log("userTr click");
-			// userId를 획득하는 방법
-			//$(this).find("userId").text();
-			//$(this).data("userid");
-			
-			// 사용자 아이디를 #userId 값으로 설정해주고
-			
-		
-		var userId = $(this).find(".userId").text();
-		$("#userId").val(userId);
-		
-		// #frm을 이용하여 submit();
-		$("#frm").submit();
-	});
-});
-</script>
-<style>
-	
-</style>
 </head>
 
 <body>
+
 	<!-- header -->
 	<%@include file="/common/header.jsp" %>	
 	
@@ -59,38 +30,53 @@
 		<!-- left -->
 		<%@include file="/common/left.jsp" %>
 		
-         <div>
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
              <div class="row">
 				<div class="col-sm-8 blog-main">
 					<h2 class="sub-header">사용자</h2>
-					<!-- 사용자 상세조회 : userId가 필요 -->
-					
-						<div class="text-center">
-					<form id="frm" action="${pageContext.request.contextPath }/insertBoard" method="get">
-								<table border="1">
-									<tr>
-									<c:forEach items="${boardList }" var="board">
-									
-									${board.board_name }
-									</c:forEach>
-									</tr>
-									<tr>
-										<input type="text" class="boardNm" name="boardNm"/>
-									</tr>
-									<tr>
-										<select name="combo">
-											<option value="Y">사용</option>
-											<option value="N">미사용</option>
-										</select>
-									</tr>
-									<tr>
-										<input type="submit" name="reg" value="생성"/>
-									</tr>
-								</table>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tr>
+								<td>게시판 이름</td>
+								<td><input type="text" name="board_name"/></td>
+								<td>
+								<select name="combo">
+									<option value="Y">사용</option>
+									<option value="N">미사용</option>
+								</select>
+								</td>
+								<td>
+									<input type="submit" name="reg" value="생성"/>
+								</td>
+							</tr>
+							<c:forEach items="${boardList }" var="board">
 								
-						 		
-						</div>
-					</form>
+								<tr>
+									<td>게시판 이름</td>
+									<td><input type="text" name="board_name" value="${board.board_name }"/></td>
+									<td>
+									<select name="combo">
+										<option value="Y">사용</option>
+										<option value="N">미사용</option>
+									</select>
+									</td>
+									<td><input type="submit" name="reg" value="생성"/></td>
+							</c:forEach>
+							
+						</table>
+					</div>
+
+					<a class="btn btn-default pull-right">사용자 등록</a>
+
+					<div class="text-center">
+						<ul class="pagination">
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
          </div>
