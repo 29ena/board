@@ -41,8 +41,16 @@
     <!-- 사용자 등록 -->
     <insert id="insertUser" parameterType="userVo">
     insert into users
-	values(#{userId},#{name},#{alias},#{pass},#{addr1}
-   		 ,#{addr2}, #{zipcd}, #{birth},#{path, jdbcType=VARCHAR},#{filename, jdbcType=VARCHAR})
+	values(#{userId}
+		 , #{name}
+		 , #{alias}
+		 , #{pass}
+		 , #{addr1}
+   		 , #{addr2}
+   		 , #{zipcd}
+   		 , #{birth}
+   		 , #{path, jdbcType=VARCHAR}
+   		 , #{filename, jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- 사용자삭제 -->
@@ -54,15 +62,15 @@
 	<!-- 사용자 수정 -->
 	<update id ="updateUser" parameterType="userVo">
 	update  users
-	    set name = #{name}
-	     , alias = #{alias}
-	     , pass = #{pass}
-	     , addr1 = #{addr1}
-	     , addr2 = #{addr2}
-	     , zipcd = #{zipcd}
-	     , birth = #{birth}
-     	 , path = #{path}
-     	 , filename = #{filename}
+    set name = #{name}
+		     , alias = #{alias}
+		     , pass = #{pass}
+		     , addr1 = #{addr1}
+		     , addr2 = #{addr2}
+		     , zipcd = #{zipcd}
+		     , birth = #{birth}
+	     	 , path = #{path}
+	     	 , filename = #{filename}
 	where userid = #{userId}
 	</update>
 	 
