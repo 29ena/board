@@ -72,7 +72,7 @@ public class BoardDaoTest {
 	@Test
 	public void updateBaordTest(){
 		/***Given***/
-		BoardVo boardVo = new BoardVo(1, "FAQ게시판", "N");
+		BoardVo boardVo = new BoardVo(1, "공지게시판", "N");
 		
 		/***When***/
 		int updateCnt = boardDao.updateBoard(boardVo);

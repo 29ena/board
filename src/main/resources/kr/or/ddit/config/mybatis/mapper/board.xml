@@ -8,7 +8,7 @@
 	<select id="boardList" resultType="boardVo">
 		select *
 		from board
-		order by board_id
+		order by board_id desc
 	</select>
 	
 	

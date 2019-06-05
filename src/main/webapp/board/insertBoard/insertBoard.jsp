@@ -17,6 +17,16 @@
 <title>사용자리스트</title>
 <!-- css, js -->
 <%@include file="/common/basicLib.jsp" %>
+<script>
+	$(document).ready(function(){
+		$("#regBtn").on("click", function(){
+			$("#frm").submit();
+		});
+		$("#updateBtn").on("click",function(){
+			$("#frm2").submit();
+		});
+	});
+</script>
 </head>
 
 <body>
@@ -35,48 +45,61 @@
 				<div class="col-sm-8 blog-main">
 					<h2 class="sub-header">사용자</h2>
 					<div class="table-responsive">
+						
 						<table class="table table-striped">
+						   <form id= "frm" class="form-horizontal" role="form" action="${pageContext.request.contextPath }/insertBoard" method="post">
 							<tr>
-								<td>게시판 이름</td>
-								<td><input type="text" name="board_name"/></td>
+								<td><label>게시판이름</label></td>
 								<td>
-								<select name="combo">
-									<option value="Y">사용</option>
-									<option value="N">미사용</option>
+								<input type="text" class="form-control" name="board_name" value="${param.board_name }"/>
+								
+								</td>
+								<td>
+								<select name="board_yn" class="form-control">
+									<option value="Y" >사용</option>
+									<option value="N" >미사용</option>
 								</select>
 								</td>
 								<td>
-									<input type="submit" name="reg" value="생성"/>
+									<input type="button" id="regBtn" class="btn btn-default" value="생성"/>
 								</td>
-							</tr>
-							<c:forEach items="${boardList }" var="board">
 								
+							</tr>
+							</form>
+							
+							<c:forEach items="${boardList }" var="board">
+								<form id= "frm2" class="form-horizontal" role="form" action="${pageContext.request.contextPath }/updateBoard"  method="post">			
 								<tr>
-									<td>게시판 이름</td>
-									<td><input type="text" name="board_name" value="${board.board_name }"/></td>
+									<td><label>게시판이름</label></td>
+									<td><input type="text" name="uboard_name" class="form-control" value="${board.board_name }"/></td>
 									<td>
-									<select name="combo">
-										<option value="Y">사용</option>
-										<option value="N">미사용</option>
+									<select name="uboard_yn" class="form-control">
+										<c:choose>
+										<c:when test="${board.board_yn =='Y'}">
+											<option value="Y" selected="selected">사용</option>
+											<option value="N" >미사용</option>
+										</c:when>
+										<c:otherwise>
+											<option value="Y" >사용</option>
+											<option value="N" selected="selected">미사용</option>
+										
+										</c:otherwise>
+									</c:choose>
 									</select>
 									</td>
-									<td><input type="submit" name="reg" value="생성"/></td>
+									<td>
+									<input type="button" id="updateBtn" class="btn btn-default" value="수정"/>
+									<input type="hidden" name="board_id"  value="${board.board_id}"/>
+									</td>
+									</tr>
+									</form>
 							</c:forEach>
-							
 						</table>
+							
+						
 					</div>
 
-					<a class="btn btn-default pull-right">사용자 등록</a>
-
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>
+				
 				</div>
 			</div>
          </div>

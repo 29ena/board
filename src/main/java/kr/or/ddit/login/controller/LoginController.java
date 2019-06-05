@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.board.service.BoardService;
+import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.user.service.IuserService;
@@ -43,12 +45,17 @@ public class LoginController extends HttpServlet {
 			.getLogger(LoginController.class);
 
 	private static final long serialVersionUID = 1L;
-	IuserService service;
+	private IuserService service;
+	
+	private IBoardService boardService; 
 	
 	@Override
 	public void init() throws ServletException {
 		service = new UserService();
+		boardService = new BoardService();
 	}
+	
+	
 	
 	// 사용자 로그인 화면 요청 처리
 	protected void doGet(HttpServletRequest request,
@@ -117,6 +124,10 @@ public class LoginController extends HttpServlet {
 			
 			// session에 사용자 정보를 넣어준다 ( 사용빈도가 높기때문에)
 			HttpSession session = request.getSession();
+			
+			// request에 boardVo를 넣어준다.
+			request.setAttribute("boardList", boardService.boardList());
+			
 			
 			session.setAttribute("USER_INFO",  new UserVo("브라운", "brown", "곰", password));	// 세션 이름은 보통 대문자를 사용한다.
 			
