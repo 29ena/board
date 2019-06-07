@@ -18,6 +18,17 @@ public interface IBoardService {
 	
 	/**
 	 * 
+	* Method : getBaord
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param board_id
+	* @return
+	* Method 설명 : 게시판 조회
+	 */
+	BoardVo getBaord(int board_id);
+	
+	/**
+	 * 
 	* Method : insertBoard
 	* 작성자 : PC20
 	* 변경이력 :

@@ -6,10 +6,9 @@
 		<ul class="nav nav-sidebar">
 			<li class="active"><a href="${pageContext.request.contextPath}/insertBoard">게시판생성</a></li>
 			<c:forEach items="${boardList }" var="board">
-			
 				<c:set var="boardYN" value="${board.board_yn }"/>
 					<c:if test="${boardYN eq 'Y' }">
-						<li class="active"><a href="${pageContext.request.contextPath}/insertBoard">${board.board_name }</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath}/articlePagingList?board_id=${board.board_id}&board_name=${board.board_name}">${board.board_name }</a></li>
 					</c:if>
 			
 			</c:forEach>

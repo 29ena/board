@@ -51,14 +51,13 @@
 							<tr>
 								<td><label>게시판이름</label></td>
 								<td>
-								<input type="text" class="form-control" name="board_name" value="${param.board_name }"/>
-								
+									<input type="text" class="form-control" name="board_name" value="${param.board_name }"/>
 								</td>
 								<td>
-								<select name="board_yn" class="form-control">
-									<option value="Y" >사용</option>
-									<option value="N" >미사용</option>
-								</select>
+									<select name="board_yn" class="form-control">
+										<option value="Y" >사용</option>
+										<option value="N" >미사용</option>
+									</select>
 								</td>
 								<td>
 									<input type="button" id="regBtn" class="btn btn-default" value="생성"/>
@@ -88,8 +87,8 @@
 									</select>
 									</td>
 									<td>
-									<input type="button" id="updateBtn" class="btn btn-default" value="수정"/>
-									<input type="hidden" name="board_id"  value="${board.board_id}"/>
+										<input type="button" id="updateBtn" class="btn btn-default" value="수정"/>
+										<input type="hidden" name="board_id"  value="${board.board_id}"/>
 									</td>
 									</tr>
 									</form>

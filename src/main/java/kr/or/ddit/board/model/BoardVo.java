@@ -9,12 +9,14 @@ public class BoardVo {
 	private String board_yn;
 	private Date board_dt;
 
+	// 업데이트용 생성자
 	public BoardVo(int board_id, String board_name, String board_yn) {
 		this.board_id = board_id;
 		this.board_name = board_name;
 		this.board_yn = board_yn;
 	}
-
+	
+	// 인서트용 생성자
 	public BoardVo(String board_userid, String board_name, String board_yn,
 			Date board_dt) {
 		this.board_userid = board_userid;

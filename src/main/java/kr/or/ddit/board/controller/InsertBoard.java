@@ -8,14 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.board.model.BoardVo;
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IBoardService;
+import kr.or.ddit.user.model.UserVo;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet implementation class InsertBoard
@@ -37,30 +37,33 @@ public class InsertBoard extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("boardList", boardService.boardList());
+		request.getServletContext().setAttribute("boardList", boardService.boardList());
 		request.getRequestDispatcher("/board/insertBoard/insertBoard.jsp")
 				.forward(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8"); // 설정하지 않으면 한글깨짐
-
+		
 		Date dt = new Date();
 
 		// 파라미터를 사용해서 boardVo 인스턴스를 만든다.
 		String board_name = request.getParameter("board_name");
 		logger.debug("board_name: {}", board_name);
-		String board_yn = request.getParameter("board_yn");
+		String board_yn = request.getParameter("board_yn");	
 		logger.debug("board_yn : {}", board_yn);
+		UserVo userVo = (UserVo) request.getSession().getAttribute("USER_INFO");
+		String user_id = userVo.getUserId();
+		logger.debug("user_id : {}", user_id);
 
 		BoardVo boardVo = null;
-		boardVo = new BoardVo("brown", board_name, board_yn, dt);
+		boardVo = new BoardVo(user_id, board_name, board_yn, dt);
+		
 		if (boardVo != null) {
 			int insertCnt = boardService.insertBoard(boardVo);
 			if (insertCnt == 1) {
-				request.getSession().setAttribute("userVo", boardVo);
+				request.getServletContext().getAttribute("boardList");
 				response.sendRedirect(request.getContextPath() + "/insertBoard");
 			}
 		}

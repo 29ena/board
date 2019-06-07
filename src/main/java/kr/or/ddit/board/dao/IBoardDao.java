@@ -13,9 +13,20 @@ public interface IBoardDao {
 	* 작성자 : PC20
 	* 변경이력 :
 	* @return
-	* Method 설명 : 사용자 전체 조회
+	* Method 설명 : 게시판 전체 조회
 	 */
 	List<BoardVo> boardList();
+	
+	/**
+	 * 
+	* Method : getBaord
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param board_id
+	* @return
+	* Method 설명 : 게시판 조회
+	 */
+	BoardVo getBaord(int board_id);
 	
 	/**
 	 * 

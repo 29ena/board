@@ -61,6 +61,23 @@ public class BoardDao implements IBoardDao {
 		return updateCnt;
 	}
 	
+	/**
+	 * 
+	* Method : getBaord
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param board_id
+	* @return
+	* Method 설명 : 게시판 조회
+	 */
+	@Override
+	public BoardVo getBaord(int board_id) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		BoardVo boardVo = sqlSession.selectOne("board.getBoard", board_id);
+		sqlSession.close();
+		return boardVo;
+	}
+	
 	
 
 }

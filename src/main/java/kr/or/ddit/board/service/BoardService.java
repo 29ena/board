@@ -31,5 +31,10 @@ public class BoardService implements IBoardService {
 		return boardDao.updateBoard(boardVo);
 	}
 
+	@Override
+	public BoardVo getBaord(int board_id) {
+		return boardDao.getBaord(board_id);
+	}
+
 
 }

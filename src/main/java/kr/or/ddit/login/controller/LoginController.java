@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.board.model.BoardVo;
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
@@ -129,8 +130,8 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("boardList", boardService.boardList());
 			
 			
-			session.setAttribute("USER_INFO",  new UserVo("브라운", "brown", "곰", password));	// 세션 이름은 보통 대문자를 사용한다.
-			
+			session.setAttribute("USER_INFO",  new UserVo(userId, "brown", "곰", password));	// 세션 이름은 보통 대문자를 사용한다.
+			session.setAttribute("board_List", boardService.boardList());
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 			rd.forward(request, response);
