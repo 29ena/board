@@ -1,6 +1,7 @@
 package kr.or.ddit.board.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,8 @@ public class BoardDaoTest {
 		List<BoardVo> boardList = boardDao.boardList();
 		logger.debug("name : {}",boardList.get(0).getBoard_name());
 		/***Then***/
-		assertEquals("FAQ게시판",boardList.get(0).getBoard_name());
+		assertNotNull(boardList);
+		assertEquals(14, boardList.size());
 	}
 	
 	/**

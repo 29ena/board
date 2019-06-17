@@ -11,31 +11,22 @@
 		where article_board=#{board_id}
 	</select>
 	
+	
+	
 	<!-- 게시글 페이지 리스트 조회 -->
-	<select id="articlePagingList" parameterType="pageVo" resultType="articleVo">
+	<select id="articlePagingList" parameterType="pagingVo" resultType="articleVo">
 		<![CDATA[
-		select *
-		from 
-		(select a.*, rownum rn
-		from
-		(select a.*
-		from article a
-		where article_board = #{board_id}
-		order by article_id) a)
-		where rn >= (#{page}-1)*#{pageSize} + 1 and rn <= #{page}*#{pageSize}
-		
 		select b.*
 		from
 		(select a.*, rownum rn
 		from
-		(select article.article_id, article.article_pid, lpad(' ㄴ', (level-1)*4) || article.article_title
+		(select article.article_id, article.article_pid,level lv,article.article_title, article.article_dt, article.article_userid,article.article_delete
 		from article article
-		where article_board = 1
+		where article_board = #{board_id}
 		start with article_pid is null
-		--start with seq = 4
 		connect by prior article_id = article_pid
 		order siblings by group_seq desc, article_id asc)a)b
-		where b.rn >=1 and b.rn <= 10;
+		where b.rn >=(#{page}-1)*#{pageSize} + 1 and b.rn <=#{page}*#{pageSize}
 		]]>
 	</select>
 	
@@ -43,6 +34,7 @@
     <select id="articlesCnt" resultType="int">
     	select count(*)
 		from article
+		where article_board = #{board_id}
     </select>
     
     <!-- 게시글 상세보기 -->
@@ -52,5 +44,61 @@
     	where article_id = #{article_id}
     </select>
     
+    <!-- 게시글 등록 -->
+    <insert id = "insertArticle" parameterType="articleVo">
+    	insert into article
+    	values( CARTICLE_NUM.NEXTVAL
+    		 , #{article_board}
+    		 , null
+    		 , #{article_userid}
+    		 , #{article_title}
+    		 , #{article_content, jdbcType=VARCHAR}
+    		 , #{article_dt}
+    		 , 'N'
+    		 , carticle_num.currval
+    	)
+    </insert>
     
+    <!-- 신규 게시글 조회 -->
+    <select id = "searchInsert" resultType="int">
+	    select max(article_id)
+		from article	
+    </select>
+    
+    <!-- 게시글 수정 -->
+    <update id = "modifyArticle" parameterType="articleVo">
+    	update article
+    	set article_title = #{article_title}
+      	  , article_content = #{article_content}
+    	where article_id = #{article_id}
+    </update>
+    
+    <!-- 게시글 삭제 -->
+    <update id = "deleteArticle" parameterType="int">
+    	update article
+    	set article_delete = 'Y'
+    	where article_id = #{article_id}
+    </update>
+    
+    <!-- 답글 등록 -->
+    <insert id = "commentArticle" parameterType="articleVo">
+    	insert into article
+    	values( CARTICLE_NUM.NEXTVAL
+    		 , #{article_board}
+    		 , #{article_pid}
+    		 , #{article_userid}
+    		 , #{article_title}
+    		 , #{article_content, jdbcType=VARCHAR}
+    		 , #{article_dt}
+    		 , 'N'
+    		 , #{group_seq}
+    	)
+    </insert>
+    
+    <!-- 최상위 부모id조회 -->
+    <select id="searchGroup" parameterType="int" resultType="int">
+    	select group_seq
+    	from article
+    	where article_id = #{article_id}
+    </select>	
 </mapper>

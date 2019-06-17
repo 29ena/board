@@ -113,11 +113,11 @@
 
 			<h2 class="form-signin-heading">Please sign in</h2>
 
-			<label for="userId" class="sr-only">userId</label> <input type="text"
-				name="userId" id="userId" class="form-control" placeholder="userId"
-				required value="${param.userId}"> <label
-				for="inputPassword" class="sr-only">Password</label> <input
-				type="password" name="password" id="password" value="1234"
+			<label for="userId" class="sr-only">userId</label> 
+			<input type="text"	name="userId" id="userId" class="form-control" placeholder="userId"
+				required value="${param.userId}"> 
+				<label for="inputPassword" class="sr-only">Password</label>
+				<input type="password" name="password" id="password" value="1234"
 				class="form-control" placeholder="Password" required>
 
 			<div class="checkbox">

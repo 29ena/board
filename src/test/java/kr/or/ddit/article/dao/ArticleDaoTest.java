@@ -2,9 +2,11 @@ package kr.or.ddit.article.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
 import kr.or.ddit.article.model.ArticleVo;
+import kr.or.ddit.article.model.PagingVo;
 import kr.or.ddit.board.dao.BoardDaoTest;
 import kr.or.ddit.paging.model.PageVo;
 
@@ -36,29 +38,10 @@ public class ArticleDaoTest {
 		assertEquals("brown", articleList.get(0).getArticle_userid());
 	}
 	
-	/**
-	 * 
-	* Method : articlePagingListTest
-	* 작성자 : PC20
-	* 변경이력 :
-	* Method 설명 : 게시글 페이징 리스트 조회 테스트
-	 */
-	@Test
-	public void articlePagingListTest(){
-		/***Given***/
-		PageVo pageVo = new PageVo(1,10);
-
-		/***When***/
-		List<ArticleVo> articleList = articleDao.articlePagingList(pageVo);
-		/***Then***/
-		assertNotNull(articleList);
-		assertEquals(10, articleList.size() );
-		logger.debug("articleList : {}", articleList.size());
-	}
 	
 	/**
 	 * 
-	* Method : getArticle
+	* Method : getArticleTest
 	* 작성자 : PC20
 	* 변경이력 :
 	* Method 설명 : 게시글 상세 보기 테스트
@@ -73,6 +56,62 @@ public class ArticleDaoTest {
 		/***Then***/
 		assertNotNull(articleVo);
 		assertEquals(1, article_id);
+	}
+	
+	/**
+	 * 
+	* Method : insertArticleTest
+	* 작성자 : PC20
+	* 변경이력 :
+	* Method 설명 : 게시글 등록
+	 */
+	@Test
+	public void insertArticleTest(){
+		/***Given***/
+		Date dt = new Date();
+		ArticleVo articleVo1 = new ArticleVo(2, "brown", "터지지마라11", "1부터 10까지 세어봅시다.", dt);
+		/***When***/
+		int insertCnt = articleDao.insertArticle(articleVo1);
+		/***Then***/
+		assertEquals(1, insertCnt);
+	}
+	
+	/**
+	 * 
+	* Method : modifyArticleTest
+	* 작성자 : PC20
+	* 변경이력 :
+	* Method 설명 : 게시글 수정
+	 */
+	@Test
+	public void modifyArticleTest(){
+		/***Given***/
+		String article_title = "수정하겠습니다.";
+		String article_content = "수정하였습니다.";
+		int article_id = 29;
+		ArticleVo articleVo = new ArticleVo(article_title, article_content, article_id);
+		
+		/***When***/
+		int updateCnt = articleDao.modifyArticle(articleVo);
+		/***Then***/
+		assertEquals(1, updateCnt);
+	}
+	
+	/**
+	 * 
+	* Method : deleteArticleTest
+	* 작성자 : PC20
+	* 변경이력 :
+	* Method 설명 : 게시글 삭제
+	 */
+	@Test
+	public void deleteArticleTest(){
+		/***Given***/
+		int article_id = 29;
+		/***When***/
+		int deleteCnt = articleDao.deleteArticle(article_id);
+		/***Then***/
+		assertEquals(1, deleteCnt);
 	}
 
 }

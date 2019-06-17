@@ -46,7 +46,7 @@ public class DbConnectionServlet extends HttpServlet {
 		BasicDataSource bs = new BasicDataSource();	//커넥션 풀을 관리하는 클래스
 		bs.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
 		bs.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		bs.setUsername("pc20");
+		bs.setUsername("hogil");
 		bs.setPassword("java");
 		bs.setInitialSize(20);
 		

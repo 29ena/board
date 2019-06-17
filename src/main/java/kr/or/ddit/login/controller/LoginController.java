@@ -54,6 +54,7 @@ public class LoginController extends HttpServlet {
 	public void init() throws ServletException {
 		service = new UserService();
 		boardService = new BoardService();
+		
 	}
 	
 	
@@ -63,7 +64,7 @@ public class LoginController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("LoginController doGet()"); // 정상적으로 이 메서드가 실행되는지 까지 확인하는
 													// 부분
-		
+		request.getServletContext().setAttribute("board_List", boardService.boardList());
 		if(request.getCookies() != null){
 			for(Cookie cookie : request.getCookies()){
 				logger.debug("cookie : {}, {}", cookie.getName(), cookie.getValue());
@@ -130,8 +131,7 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("boardList", boardService.boardList());
 			
 			
-			session.setAttribute("USER_INFO",  new UserVo(userId, "brown", "곰", password));	// 세션 이름은 보통 대문자를 사용한다.
-			session.setAttribute("board_List", boardService.boardList());
+			session.setAttribute("USER_INFO", userVo );	// 세션 이름은 보통 대문자를 사용한다.
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 			rd.forward(request, response);

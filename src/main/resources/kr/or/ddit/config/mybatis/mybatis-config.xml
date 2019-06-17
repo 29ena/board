@@ -10,6 +10,9 @@
 		<typeAlias alias="boardVo" type="kr.or.ddit.board.model.BoardVo"/>
 		<typeAlias alias="articleVo" type="kr.or.ddit.article.model.ArticleVo"/>
 		<typeAlias alias="pageVo" type="kr.or.ddit.paging.model.PageVo"/>
+		<typeAlias alias="pagingVo" type="kr.or.ddit.article.model.PagingVo"/>
+		<typeAlias alias="replyVo" type="kr.or.ddit.reply.model.ReplyVo"/>
+		<typeAlias alias="attachVo" type="kr.or.ddit.attach.model.AttachVo"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -17,7 +20,7 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
 				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-				<property name="username" value="PC20" />
+				<property name="username" value="hogil" />
 				<property name="password" value="java" />
 			</dataSource>
 		</environment>
@@ -27,5 +30,7 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/lprod.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/article.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/reply.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/attach.xml" />
 	</mappers>
 </configuration>

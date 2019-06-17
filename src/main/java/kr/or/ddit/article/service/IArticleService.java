@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.article.model.ArticleVo;
+import kr.or.ddit.article.model.PagingVo;
 import kr.or.ddit.paging.model.PageVo;
 import kr.or.ddit.user.model.UserVo;
 
@@ -38,7 +39,7 @@ public interface IArticleService {
 	* @return
 	* Method 설명 : 게시글 페이징 리스트 조회
 	 */
-	Map<String, Object> articlePagingList(PageVo pageVo);
+	Map<String, Object> articlePagingList(Map<String, Object>map);
 	
 	/**
 	 * 
@@ -60,7 +61,7 @@ public interface IArticleService {
 	* @return
 	* Method 설명 : 게시글 수정
 	 */
-	int updateArticle(ArticleVo articleVo);
+	int modifyArticle(ArticleVo articleVo);
 	
 	/**
 	 * 
@@ -71,5 +72,30 @@ public interface IArticleService {
 	* @return
 	* Method 설명 : 게시글 삭제
 	 */
-	int deleteArticle(ArticleVo articleVo);
+	int deleteArticle(int article_id);
+	
+	/**
+	 * 
+	* Method : deleteArticle
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param 
+	* @return
+	* Method 설명 : 신규 게시글 조회
+	 */
+	int searchInsert();
+	
+	/**
+	 * 
+	* Method : commentArticle
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param 
+	* @return
+	* Method 설명 : 답글 작성
+	 */
+	int commentArticle(ArticleVo articleVo);
+	
+	int searchGroup(int article_id);
+	
 }

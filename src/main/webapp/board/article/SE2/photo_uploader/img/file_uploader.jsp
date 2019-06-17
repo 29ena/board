@@ -2,6 +2,9 @@
 	* 화면명 : Smart Editor 2.8 에디터 - 싱글 파일 업로드 처리
 	* 파일명 : /SE2/photo_uploader/file_uploader.jsp
 --------------------------------------------------------------------------------%>
+<%@page import="org.apache.tomcat.util.http.fileupload.FileItem"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.UUID"%>

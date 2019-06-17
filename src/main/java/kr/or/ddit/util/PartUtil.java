@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class PartUtil {
 
-	private static final String UPLOAD_PATH = "d:\\upload\\";
+	private static final String UPLOAD_PATH = "c:\\upload\\";
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(PartUtil.class);

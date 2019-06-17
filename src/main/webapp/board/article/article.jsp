@@ -69,17 +69,33 @@
 							</tr>
 							<!-- 향상된 for -->
 							<c:forEach items="${articleList }" var="article">
+									<c:choose>
+									<c:when test="${article.article_delete eq 'Y'}">
+										<tr>
+										<td></td>
+										<td>[삭제된 게시글입니다]</td>
+										<td></td>
+										<td></td>
+										</tr>
+									</c:when>
+									<c:otherwise>
 									<tr class = "articleTr" data-article_id="${article.article_id }">
 										<td class="article_id">${article.article_id }</td>
-										<td>${article.article_title }</td>
+										<td><c:forEach begin="1" end="${article.lv-1 }">&nbsp;&nbsp;&nbsp;&nbsp; </c:forEach>
+										<c:if test="${article.lv!= 1	 }"> ㄴ</c:if>
+										 ${article.article_title }</td>
 										<td>${article.article_userid }</td>
-										<td><fmt:formatDate value="${article.article_dt }" pattern="yyyy-MM-dd"/> </td>
+										<td><fmt:formatDate value="${article.article_dt }" pattern="yyyy-MM-dd"/></td>
 									</tr>
+									</c:otherwise>
+									</c:choose>
 								</c:forEach>
 						</table>
 					</div>
+					<form action="${pageContext.request.contextPath }/articleWrite"  method="post">
 					
-					<a href="${pageContext.request.contextPath }/articleWrite" class="btn btn-default pull-right">새글 등록</a>
+					<a href="${pageContext.request.contextPath }/articleWrite?board_id=${board_id}" class="btn btn-default pull-right">새글 등록</a>
+					</form>
 					<!-- 사용자 수 : 105건
 						  페이지네이션 : 11건
 					  -->
@@ -89,44 +105,75 @@
 							
 							
 								<c:choose>
-									<c:when test="${pageVo.page == 1 }">
+									<c:when test="${pagingVo.page == 1 }">
 										<li class="disabled">
-										<span>«</span>
+										<span>◀◀</span>
 										</li>
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="${pageContext.request.contextPath}/articlePagingList?page=${pageVo.page -1 }&pageSize=${pageVo.pageSize}" >«</a>
+											<a href="${pageContext.request.contextPath}/articlePagingList?page=1&pageSize=${pagingVo.pageSize}&board_id=${pagingVo.board_id}" >◀◀</a>
 										</li>
 									</c:otherwise>
+									
 								</c:choose>
+							
+								<c:choose>
+									<c:when test="${pagingVo.page == 1 }">
+										<li class="disabled">
+										<span>◀</span>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="${pageContext.request.contextPath}/articlePagingList?page=${pagingVo.page -1 }&pageSize=${pagingVo.pageSize}&board_id=${pagingVo.board_id}" >◀</a>
+										</li>
+									</c:otherwise>
+									
+								</c:choose>
+								
 								<c:forEach begin="1" end= "${paginationSize }" var="i">
 									<c:choose>
-										<c:when test="${pageVo.page == i}">
+										<c:when test="${pagingVo.page == i}">
 											<li	class = "active">										
 									  			<span>${i }</span>
 								  			</li>
 										</c:when>
 										<c:otherwise>
 											<li>
-											<a href="${pageContext.request.contextPath}/articlePagingList?page=${i }&pageSize=${pageVo.pageSize}">${i }</a>
+											<a href="${pageContext.request.contextPath}/articlePagingList?page=${i }&pageSize=${pagingVo.pageSize}&board_id=${pagingVo.board_id}">${i }</a>
 											</li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 							
 								<c:choose>
-									<c:when test="${pageVo.page == paginationSize }">
+									<c:when test="${pagingVo.page == paginationSize }">
 										<li class="disabled">
-											<span>»</span>
+											<span>▶</span>
 										</li>
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="${pageContext.request.contextPath}/articlePagingList?page=${pageVo.page +1 }&pageSize=${pageVo.pageSize}">»</a>
+											<a href="${pageContext.request.contextPath}/articlePagingList?page=${pagingVo.page +1}&pageSize=${pagingVo.pageSize}&board_id=${pagingVo.board_id}">▶</a>
 										</li>
 									</c:otherwise>
 								</c:choose>
+								
+								<c:choose>
+									<c:when test="${pagingVo.page == paginationSize }">
+										<li class="disabled">
+											<span>▶▶</span>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="${pageContext.request.contextPath}/articlePagingList?page=${paginationSize}&pageSize=${pagingVo.pageSize}&board_id=${pagingVo.board_id}">▶▶</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							
+								
 						</ul>
 					</div>
 				</div>

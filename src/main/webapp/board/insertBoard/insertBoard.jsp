@@ -22,9 +22,6 @@
 		$("#regBtn").on("click", function(){
 			$("#frm").submit();
 		});
-		$("#updateBtn").on("click",function(){
-			$("#frm2").submit();
-		});
 	});
 </script>
 </head>
@@ -66,8 +63,8 @@
 							</tr>
 							</form>
 							
-							<c:forEach items="${boardList }" var="board">
-								<form id= "frm2" class="form-horizontal" role="form" action="${pageContext.request.contextPath }/updateBoard"  method="post">			
+							<c:forEach items="${board_List }" var="board">
+								<form  class="form-horizontal" role="form" action="${pageContext.request.contextPath }/updateBoard"  method="post">			
 								<tr>
 									<td><label>게시판이름</label></td>
 									<td><input type="text" name="uboard_name" class="form-control" value="${board.board_name }"/></td>
@@ -87,7 +84,7 @@
 									</select>
 									</td>
 									<td>
-										<input type="button" id="updateBtn" class="btn btn-default" value="수정"/>
+										<input type="submit" id="updateBtn" class="btn btn-default" value="수정"/>
 										<input type="hidden" name="board_id"  value="${board.board_id}"/>
 									</td>
 									</tr>

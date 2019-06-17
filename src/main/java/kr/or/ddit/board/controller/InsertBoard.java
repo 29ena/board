@@ -2,6 +2,7 @@ package kr.or.ddit.board.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,8 +37,7 @@ public class InsertBoard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		request.getServletContext().setAttribute("boardList", boardService.boardList());
+		request.getServletContext().setAttribute("board_List", boardService.boardList());
 		request.getRequestDispatcher("/board/insertBoard/insertBoard.jsp")
 				.forward(request, response);
 	}
@@ -56,14 +56,18 @@ public class InsertBoard extends HttpServlet {
 		UserVo userVo = (UserVo) request.getSession().getAttribute("USER_INFO");
 		String user_id = userVo.getUserId();
 		logger.debug("user_id : {}", user_id);
-
+		
+		
+		
 		BoardVo boardVo = null;
 		boardVo = new BoardVo(user_id, board_name, board_yn, dt);
+		
 		
 		if (boardVo != null) {
 			int insertCnt = boardService.insertBoard(boardVo);
 			if (insertCnt == 1) {
-				request.getServletContext().getAttribute("boardList");
+				List<BoardVo> boardList = boardService.boardList();
+				request.getServletContext().setAttribute("board_List", boardList);
 				response.sendRedirect(request.getContextPath() + "/insertBoard");
 			}
 		}

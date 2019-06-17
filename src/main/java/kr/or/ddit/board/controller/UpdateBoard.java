@@ -62,8 +62,8 @@ public class UpdateBoard extends HttpServlet {
 		updateBoard = new BoardVo(uBoard_id, uBoard_name, uBoard_yn);
 		
 		int updateCnt = boardService.updateBoard(updateBoard);
-		
-		if(updateCnt ==1){
+		if(updateCnt == 1){
+			request.getServletContext().setAttribute("board_List", boardService.boardList());
 			response.sendRedirect(request.getContextPath() + "/insertBoard");
 		}
 	}

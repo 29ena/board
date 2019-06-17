@@ -6,7 +6,7 @@
 	
 	<!-- 전체조회 -->
 	<select id="boardList" parameterType="int" resultType="boardVo">
-		select *
+		select /*+ INDEX(BOARD PK_BOARD)*/*
 		from board
 		order by board_id desc
 	</select>

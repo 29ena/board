@@ -56,7 +56,29 @@ $(document).ready(function() {
             $("#frm").submit();
          }
       }
-   })
+   });
+   
+   $("#addBtn").on("click",function(){
+// 	      var fileLength = $(".filelable").length;
+	      
+// 	      if($(".myfiles").length + fileLength > 4) {
+// 	         alert("첨부파일은 최대 5개 입니다.");
+// 	         return;
+// 	      }
+		if($(".myfiles").length < 5){		
+		newfile = $("<input/>", {
+	      "type" : "file", 
+	      "class" : "myfiles", 
+	      "name" : "myfile"
+		});
+	      $(this).parent().append(newfile);
+		}else{
+			alert("최대 5개의 파일을 올릴 수 있습니다.")
+		}
+		
+   });
+   
+   
 });
 
 // 필수값 Check
@@ -64,7 +86,7 @@ function validation(){
    var contents = $.trim(oEditors[0].getContents());
    if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
       alert("내용을 입력하세요.");
-      oEditors.getById['smarteditor'].exec('FOCUS');
+     oEditors.getById['smarteditor'].exec('FOCUS');
       return false;
    }
 
@@ -79,41 +101,46 @@ function validation(){
 	<!-- header -->
 	<%@include file="/common/header.jsp" %>	
 	
-	<div class="container-fluid">
-		<div class="row">
-			
 		<!-- left -->
 		<%@include file="/common/left.jsp" %>
-		<div class="table-responsive">
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-             <div class="row">
-				<div class="col-sm-10 blog-main">
-					<h2 class="sub-header">새글 등록</h2>
-				</div> 
-			<table class="table table-striped">
-			<tr>
-			<td><label>제목</label></td>
-			<td><input class="form-control" id="aricle_title" name="aricle_title" type="text" value="${param.userId }"/></td>
-			</tr>
-			<tr>
-			<td>글 내용</td>
-			<td>
-				
-   				<textarea name="article_content" id="smarteditor" rows="10" cols="100" style="width:1000px; height:412px;"></textarea> 
-				
-			</td>
-			</tr>	
-			<tr>
-			<td>첨부파일</td>
-			<td ><input type="text" class="form-control"/></td>
-			<td></td>
-			<td><a class="btn btn-default">저장</a></td>
-			</tr>
-  			</table>
-         	
-         	
-      	</div>
-		</div>
-   	</div>
- </body>
+			<div class="table-responsive">
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<div class="col-sm-10 blog-main">
+						<h2 class="sub-header">새글 등록</h2>
+					</div> 
+					<form id = "frm" class="form-hrizontal" role="form" action="${pageContext.request.contextPath }/articleWrite"
+								method="post" enctype="multipart/form-data">
+								<input type="hidden" id="board_id" name="board_id" value="${board_id}"/>
+					<table class="table table-striped">
+						<tr>
+						<td><label>제목</label></td>
+						<td><input class="form-control" id="aricle_title" name="article_title" type="text" value="${param.article_title}"/></td>
+						</tr>
+						<tr>
+						<td>글 내용</td>
+						<td>
+							
+			   				<textarea name="article_content" id="smarteditor" value="${param.article_content }" rows="10" cols="100" 
+			   								style="width:750px; height:412px;"></textarea> 
+							
+						</td>
+						</tr>	
+						<tr>
+					
+						<td class="col-sm-1">첨부파일</td>
+						<td >
+						 <div class="form-group">
+	                        <div >
+	                        	<button id = "addBtn" type="button" class="btn btn-default">추가</button>
+	                        </div>
+                    	 </div>
+						</td>
+						<td></td>
+						<td><button type="button" id="savebutton" name="savebutton" class="btn btn-default">저장</button></td>
+						</tr>
+		  			</table>
+		  			</form>
+				</div>
+	   		</div>
+ 	</body>
 </html>

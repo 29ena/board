@@ -1,6 +1,7 @@
 package kr.or.ddit.article.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.article.dao.IArticleDao;
 import kr.or.ddit.article.model.ArticleVo;
+import kr.or.ddit.article.model.PagingVo;
 import kr.or.ddit.article.service.ArticleService;
 import kr.or.ddit.article.service.IArticleService;
 import kr.or.ddit.board.model.BoardVo;
@@ -57,42 +59,44 @@ public class ArticlePagingList extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
+		
 			int board_id = Integer.parseInt(request.getParameter("board_id"));
-			
+			logger.debug("board_id : {}", board_id);
 			
 			String pageString = request.getParameter("page");
 			String pageSizeString = request.getParameter("pageSize");
-			logger.debug("pageString : {}",pageString);
-			logger.debug("pageSizeString : {}",pageSizeString);
 			
 			
 			int page = pageString == null ? 1 : Integer.parseInt(pageString);
 			int pageSize = pageSizeString == null ? 10 : Integer.parseInt(pageSizeString);
+			logger.debug("pageString : {}",page);
+			logger.debug("pageSizeString : {}",pageSize);
 			
-			PageVo pageVo = new PageVo(page, pageSize);
-			
-			Map<String, Object> resultMap = articleService.articlePagingList(pageVo);
+			PagingVo pagingVo = new PagingVo(page, pageSize, board_id);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("board_id", board_id);
+			map.put("pageSize", pageSize);
+			map.put("page", page);
+			Map<String, Object> resultMap = articleService.articlePagingList(map);
 			
 			List<ArticleVo> articleList = (List<ArticleVo>) resultMap.get("articleList");
 			int paginationSize = (Integer) resultMap.get("paginationSize");
 			
-			logger.debug("paginationSize : {}", paginationSize);
-			
 			request.setAttribute("articleList", articleList);
 			request.setAttribute("paginationSize", paginationSize);
-			request.setAttribute("pageVo", pageVo);
+			request.setAttribute("pagingVo", pagingVo);
 			request.getParameter("board_name");
-			request.getParameter("board_id");
-			
+			logger.debug("board_id : {}",request.getParameter("board_id") );
 			request.getSession().getAttribute("USER_INFO");
 			request.getServletContext().getAttribute("boardList");
 			request.getSession().setAttribute("board_list", boardService.getBaord(board_id));
 			
+			request.setAttribute("board_id", board_id);
 			request.getRequestDispatcher("/board/article/article.jsp").forward(request, response);
 			
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getParameter("board_id");
 		
 	}
 

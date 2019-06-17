@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.ddit.article.model.ArticleVo;
+import kr.or.ddit.article.model.PagingVo;
 import kr.or.ddit.mybatis.MyBatisUtil;
 import kr.or.ddit.paging.model.PageVo;
 import kr.or.ddit.user.model.UserVo;
@@ -73,9 +74,9 @@ public class ArticleDao implements IArticleDao {
 	* Method 설명 : 게시글 수정
 	 */
 	@Override
-	public int updateArticle(ArticleVo articleVo) {
+	public int modifyArticle(ArticleVo articleVo) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSession();
-		int updateCnt = sqlSession.update("article.updateArticle", articleVo);
+		int updateCnt = sqlSession.update("article.modifyArticle", articleVo);
 		sqlSession.commit();
 		sqlSession.close();
 		return updateCnt;
@@ -91,9 +92,9 @@ public class ArticleDao implements IArticleDao {
 	* Method 설명 : 게시글 삭제
 	 */
 	@Override
-	public int deleteArticle(ArticleVo articleVo) {
+	public int deleteArticle(int article_id) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSession();
-		int deleteCnt = sqlSession.update("article.deleteArticle",articleVo);
+		int deleteCnt = sqlSession.update("article.deleteArticle",article_id);
 		sqlSession.commit();
 		sqlSession.close();
 		return deleteCnt;
@@ -109,10 +110,9 @@ public class ArticleDao implements IArticleDao {
 	* Method 설명 : 게시글 페이징 리스트 조회
 	 */
 	@Override
-	public List<ArticleVo> articlePagingList(PageVo pageVo) {
+	public List<ArticleVo> articlePagingList(Map<String, Object> map) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSession();
-		List<ArticleVo> articleList = sqlSession.selectList("article.articlePagingList",
-				pageVo);
+		List<ArticleVo> articleList = sqlSession.selectList("article.articlePagingList",map);
 		sqlSession.close();
 		return articleList;
 	}
@@ -126,12 +126,41 @@ public class ArticleDao implements IArticleDao {
 	* Method 설명 : 게시글 전체수 조회
 	 */
 	@Override
-	public int articlesCnt() {
+	public int articlesCnt(int board_id) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSession();
-		int articlesCnt = (Integer) sqlSession.selectOne("article.articlesCnt");
+		int articlesCnt = (Integer) sqlSession.selectOne("article.articlesCnt", board_id);
 		sqlSession.close();
 		return articlesCnt;
 	}
+
+	@Override
+	public int searchInsert() {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int searchId = sqlSession.selectOne("article.searchInsert");
+		sqlSession.close();
+		return searchId;
+	}
+
+	@Override
+	public int commentArticle(ArticleVo articleVo) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int insertCnt = sqlSession.insert("article.commentArticle",articleVo);
+		sqlSession.commit();
+		sqlSession.close();
+		return insertCnt;
+	}
+
+	@Override
+	public int searchGroup(int article_id) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int searchGroup = sqlSession.selectOne("article.searchGroup", article_id);
+		
+		sqlSession.close();
+		
+		return searchGroup;
+	}
+	
+	
 	
 
 }
