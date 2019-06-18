@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.apache.tomcat.util.http.fileupload.FileUpload;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import kr.or.ddit.article.model.ArticleVo;
 import kr.or.ddit.article.service.ArticleService;
 import kr.or.ddit.article.service.IArticleService;
@@ -24,6 +20,9 @@ import kr.or.ddit.attach.model.AttachVo;
 import kr.or.ddit.attach.service.FileUploadService;
 import kr.or.ddit.attach.service.IFileUploadService;
 import kr.or.ddit.util.PartUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.ddit.reply.service.IReplyService;
 import kr.or.ddit.reply.service.ReplyService;
 
-import org.apache.tomcat.jdbc.pool.interceptor.ResetAbandonedTimer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
